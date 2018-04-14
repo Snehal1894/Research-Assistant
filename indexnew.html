@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en" class="no-js">
+    <head>
+        <title>THiCweed</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="fileupload.css" />
+	<link rel="stylesheet" type="text/css" href="mainpage.css" />
+	<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script>
+	
+        <script src="use.js"></script>
+        <script src="hideshowtb.js"></script>
+        <script>
+          window.onload = function () {
+	  var fileInput = document.getElementById('file-7');
+	  var l1 = document.getElementById('l1');
+	  fileInput.addEventListener('change', function (e)
+	  {
+	  var file = fileInput.files[0];
+	  var reader = new FileReader();
+	  reader.onload = function (e)
+	  {
+	  var cnt = 0, i = 0;
+	  var contents = reader.result;
+	  var lines = contents.split('\n');
+	  while (i < 4)
+		     {
+		     if (lines[i].includes('>'))
+	    cnt = cnt + 1;
+	    i = i + 1;
+	    if (lines[i].match('.*^[AGCT]+$.*'))
+	    cnt = cnt + 1;
+	    i = i + 1;
+	    }
+	    if (cnt != 4)
+	    l1.innerText = "Not in fasta format: please check";
+	    else
+	    l1.innerText = "";
+
+	    }
+	    reader.readAsText(file);
+	    });
+	    }
+
+	    
+
+        </script>
+    </head>
+    <body>
+    <center>
+        <h2 >THiCweed server</h2>
+        <hr>
+         <p> ThiCweed takes fasta-formatted sequences (such as ChIP-seq peaks) and finds motifs and contextual sequence patterns
+            via a clustering approach. 
+         </p>
+	 <p>This web server runs THiCweed on not-too-large files (limit 300,000 bytes).  For larger files, download the program and run it locally.</P>
+        <form name="First" action="action.jsp"  method ="POST" enctype="multipart/form-data" onsubmit="return checkfiles();">
+                   <div class="container">
+			<div class="content">
+				<div class="box">
+					<input type="file" name="file-7[]" id="file-7" class="inputfile inputfile-6" />
+					<label for="file-7"><span></span><strong> Uplaod a Fasta file&hellip;</strong></label><br/><br/>
+					<label id="l1"></label>
+				</div>
+			</div>
+		</div>
+		 
+            <table>
+                <tr>   
+                    <td><input type="checkbox" name="c1" id=" ck1" value="-l" onclick="lendiv(this)"><label for="len" class="ck">-l</label></td>
+                    <td><input type="text" id="t1" name="tb1" size="2"style="display: none" /></td>
+                    <td><input type="checkbox" name="c2"id=" ck2"  value="-S"><label for="S" class="ck">-S</label></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="c10" id=" ck10" value="-o" onclick="odiv(this)"><label for="o" class="ck">-o</label></td>
+                    <td><input type="text" id="t10" name="tb10" size="2" style="display: none"/></td>
+                    <td><input type="checkbox" name="c4" id=" ck4" value="-R">-R</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="c5" id=" ck5" value="-r" onclick="rdiv(this)"><label for="r" class="ck">-r</label></td>
+                    <td><input type="text" id="t5" name="tb5" size="2" style="display: none"/></td>
+                    <td><input type="checkbox" name="c6" id=" ck6"  value="-m" onclick="mdiv(this)"><label for="m" class="ck">-m</label></td>
+                    <td> <input type="text" id="t6" name="tb6" size="2" style="display: none"/></td>
+                </tr>
+                <tr>
+                    <td> <input type="checkbox" name="c7" id=" ck7" value="-i" onclick="idiv(this)"><label for="i" class="ck">-i</label></td>
+                    <td><input type="text" id="t7" name="tb7" size="2" style="display: none"/> </td>
+                    <td> <input type="checkbox" name="c8" id=" ck8" value="-N" onclick="Ndiv(this)"><label for="N" class="ck">-N</label></td>
+                    <td><input type="text" id="t8" name="tb8" size="2" style="display: none"/></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="c9" id=" ck9" value="-M" onclick="Mdiv(this)"><label for="M" class="ck">-M</label></td>
+                    <td><input type="text" id="t9" name="tb9" size="2" style="display: none"/></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table><br/><br/>
+            <input type="submit" value="Submit" name="submit"/><br/><br/>
+	<script src="custom-file-input.js"></script>
+	</form>
+	<div class="buttons">
+	<form action="help.html" target="_blank" style="display: inline;">
+		<input type="submit" value="Help" name="Help"/>
+	</form>
+	<form action="http://www.imsc.res.in/~rsidd/thicweed/" target="_blank" style="display: inline;">
+		<input type="submit" value="Documentation" name="Help"/>
+	</form>
+	<form action="http://www.imsc.res.in/~rsidd/thicweed/" target="_blank" style="display: inline;">
+		<input type="submit" value="Download" name="Help"/>
+	</form>
+	</div>
+    </center>
+</body>
+</html>
